@@ -4,7 +4,7 @@ FROM node:18 AS build
 WORKDIR /app
 
 # Copia apenas o package.json
-COPY package.json ./
+COPY package.json package-lock.json ./
 
 # Instala as dependências sem precisar do package-lock.json
 RUN npm install --legacy-peer-deps
