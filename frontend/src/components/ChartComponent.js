@@ -6,11 +6,12 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
-  Title
+  Title,
+  Tooltip
 } from "chart.js";
-import zoomPlugin from "chartjs-plugin-zoom"; // Importando o plugin de zoom
+import zoomPlugin from "chartjs-plugin-zoom"; // Plugin de zoom
 
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, zoomPlugin);
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Title, Tooltip, zoomPlugin);
 
 const ChartComponent = ({ title, unit, data }) => {
   const sortedData = [...data].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
@@ -26,11 +27,12 @@ const ChartComponent = ({ title, unit, data }) => {
       {
         label: `${title} (${unit})`,
         data: sortedData.map(item => item.value),
-        borderColor: "blue",
+        borderColor: "#00C896", // Verde Neon para contraste
         borderWidth: 2,
         fill: false,
-        pointRadius: 2, // Deixa os pontos visíveis, mas pequenos
-        pointHoverRadius: 5, // Aumenta ao passar o mouse
+        pointRadius: 3,
+        pointHoverRadius: 6,
+        backgroundColor: "#00C896"
       }
     ]
   };
@@ -44,6 +46,7 @@ const ChartComponent = ({ title, unit, data }) => {
         ticks: {
           autoSkip: true,
           maxTicksLimit: Math.min(14, sortedData.length),
+          color: "#FFFFFF" // Letras brancas para melhor visibilidade
         }
       },
       y: {
@@ -52,6 +55,10 @@ const ChartComponent = ({ title, unit, data }) => {
           display: true,
           text: unit,
           font: { size: 14 },
+          color: "#FFFFFF" // Letras brancas no eixo Y
+        },
+        ticks: {
+          color: "#FFFFFF" // Letras brancas nos números do eixo Y
         }
       }
     },
@@ -60,21 +67,30 @@ const ChartComponent = ({ title, unit, data }) => {
         display: true,
         text: title,
         font: { size: 16 },
+        color: "#FFFFFF", // Branco para títulos
         padding: { top: 10, bottom: 15 }
+      },
+      tooltip: {
+        enabled: true,
+        backgroundColor: "#222",
+        titleColor: "#FFF",
+        bodyColor: "#FFF",
+        borderColor: "#00C896",
+        borderWidth: 1
       },
       zoom: {
         pan: {
           enabled: true,
-          mode: "x", // Permite mover na horizontal
+          mode: "x"
         },
         zoom: {
           wheel: {
-            enabled: true, // Zoom com rolagem do mouse
+            enabled: true
           },
           pinch: {
-            enabled: true // Zoom com pinch em touchscreens
+            enabled: true
           },
-          mode: "x", // Zoom apenas na horizontal
+          mode: "x"
         }
       }
     }
