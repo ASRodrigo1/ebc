@@ -2,7 +2,7 @@ exclude: '^docs/conf.py'
 
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.6.0
+  rev: v5.0.0
   hooks:
   - id: trailing-whitespace
   - id: check-added-large-files
@@ -17,12 +17,12 @@ repos:
   - id: mixed-line-ending
     args: ['--fix=auto']  # replace 'auto' with 'lf' to enforce Linux/Mac line endings or 'crlf' for Windows
 
-## If you want to automatically "modernize" your Python code:
-# - repo: https://github.com/asottile/pyupgrade
-#   rev: v3.17.0
-#   hooks:
-#   - id: pyupgrade
-#     args: ['--py38-plus']
+# If you want to automatically "modernize" your Python code:
+- repo: https://github.com/asottile/pyupgrade
+  rev: v3.19.1
+  hooks:
+  - id: pyupgrade
+    args: ['--py38-plus']
 
 ## If you want to avoid flake8 errors due to unused vars or imports:
 # - repo: https://github.com/PyCQA/autoflake
@@ -36,22 +36,22 @@ repos:
 #     ]
 
 - repo: https://github.com/PyCQA/isort
-  rev: 5.13.2
+  rev: 6.0.0
   hooks:
   - id: isort
 
 - repo: https://github.com/psf/black
-  rev: stable
+  rev: 25.1.0
   hooks:
   - id: black
     language_version: python3
 
-## If like to embrace black styles even in the docs:
-# - repo: https://github.com/asottile/blacken-docs
-#   rev: 1.18.0
-#   hooks:
-#   - id: blacken-docs
-#     additional_dependencies: [black]
+# If like to embrace black styles even in the docs:
+- repo: https://github.com/asottile/blacken-docs
+  rev: 1.19.1
+  hooks:
+  - id: blacken-docs
+    additional_dependencies: [black]
 
 - repo: https://github.com/PyCQA/flake8
   rev: 7.1.1
@@ -60,8 +60,8 @@ repos:
   ## You can add flake8 plugins via `additional_dependencies`:
   #  additional_dependencies: [flake8-bugbear]
 
-## Check for misspells in documentation files:
+# Check for misspells in documentation files:
 # - repo: https://github.com/codespell-project/codespell
-#   rev: v2.3.0
+#   rev: v2.4.1
 #   hooks:
 #   - id: codespell
