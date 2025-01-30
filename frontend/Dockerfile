@@ -3,10 +3,11 @@ FROM node:18 AS build
 
 WORKDIR /app
 
+# Copia apenas o package.json
 COPY package.json ./
 
-# Remove cache antigo e instala dependências corretamente
-RUN rm -rf node_modules && npm ci
+# Instala as dependências sem precisar do package-lock.json
+RUN npm install --legacy-peer-deps
 
 # Copia o restante do código
 COPY . ./
