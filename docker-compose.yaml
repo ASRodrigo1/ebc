@@ -70,6 +70,25 @@ services:
     networks:
       - appnet
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    depends_on:
+      - app
+    ports:
+      - 3000:3000
+    environment:
+      - REACT_APP_API_URL=http://app:8000
+    networks:
+      - appnet
+    volumes:
+      - ./frontend:/app:rw
+    stdin_open: true
+    tty: true
+
 networks:
   appnet:
     driver: bridge
