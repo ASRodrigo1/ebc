@@ -5,7 +5,7 @@ FROM node:18 AS build
 WORKDIR /app
 
 # Copia os arquivos do projeto para o container
-COPY package.json package-lock.json ./
+COPY package.json ./
 RUN npm install
 
 # Copia o restante dos arquivos e compila o projeto
