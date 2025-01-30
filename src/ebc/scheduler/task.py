@@ -51,7 +51,7 @@ async def fetch_and_store_data():
 
 
 # Agendar a função para rodar a cada 30 minutos (ou menos para testes)
-scheduler.add_job(fetch_and_store_data, "interval", minutes=0.2)
+scheduler.add_job(fetch_and_store_data, "interval", minutes=5)
 
 
 async def start_scheduler():
