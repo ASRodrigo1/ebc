@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ChartComponent from "./ChartComponent";
 import axios from "axios";
 
-const API_URL = "http://147.93.66.207:8000/entries/";
+const API_URL = "http://147.93.66.207:8000/entries?limit=1000";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);

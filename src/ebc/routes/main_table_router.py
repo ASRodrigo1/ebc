@@ -24,9 +24,12 @@ async def get_latest_main_table_entry(db: AsyncSession = Depends(get_db_session)
 
 
 @router.get("/entries/", response_model=list[MainTableRead])
-async def get_all_main_table_entries(db: AsyncSession = Depends(get_db_session)):
-    """Obtém todos os registros da tabela."""
-    return await get_all_entries(db)
+async def get_all_main_table_entries(
+    db: AsyncSession = Depends(get_db_session),
+    limit: int = Query(50, description="Número de registros a recuperar"),
+):
+    """Obtém os últimos N registros da tabela."""
+    return await get_all_entries(db, limit)
 
 
 @router.get("/entries/filter", response_model=list[MainTableRead])

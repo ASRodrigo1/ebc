@@ -12,7 +12,7 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 const ChartComponent = ({ title, data }) => {
   const chartData = {
-    labels: data.map(item => new Date(item.created_at).toLocaleTimeString()), // Datas formatadas
+    labels: data.map(item => new Date(item.created_at).toLocaleTimeString()), // Formata horário
     datasets: [
       {
         label: title,
@@ -24,10 +24,19 @@ const ChartComponent = ({ title, data }) => {
     ]
   };
 
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: { display: true },
+      y: { display: true }
+    }
+  };
+
   return (
-    <div>
+    <div style={{ width: "90%", maxWidth: "600px", height: "300px", margin: "auto" }}>
       <h3>{title}</h3>
-      <Line data={chartData} />
+      <Line data={chartData} options={options} />
     </div>
   );
 };

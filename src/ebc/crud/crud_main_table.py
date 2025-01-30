@@ -22,7 +22,9 @@ async def get_latest_entry(db: AsyncSession) -> MainTableModel:
     return result.scalar_one_or_none()
 
 
-async def get_all_entries(db: AsyncSession):
-    """Obtém todos os registros na tabela."""
-    result = await db.execute(select(MainTableModel))
+async def get_all_entries(db: AsyncSession, limit: int = 50):
+    """Obtém os últimos `limit` registros, ordenados por data."""
+    result = await db.execute(
+        select(MainTableModel).order_by(MainTableModel.created_at.desc()).limit(limit)
+    )
     return result.scalars().all()
