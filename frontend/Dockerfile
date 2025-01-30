@@ -3,8 +3,7 @@ FROM node:18 AS build
 
 WORKDIR /app
 
-# Copia os arquivos package.json e package-lock.json
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 # Remove cache antigo e instala dependências corretamente
 RUN rm -rf node_modules && npm ci
