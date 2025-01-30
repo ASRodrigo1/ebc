@@ -1,13 +1,13 @@
-# Etapa 1: Build do frontend
+# Etapa de build
 FROM node:18 AS build
 
 WORKDIR /app
 
-# Copia package.json e package-lock.json para otimizar cache do npm install
-COPY package.json ./
+# Copia os arquivos package.json e package-lock.json
+COPY package.json package-lock.json ./
 
-# Instala apenas as dependências, sem executar o código
-RUN npm install --legacy-peer-deps
+# Remove cache antigo e instala dependências corretamente
+RUN rm -rf node_modules && npm ci
 
 # Copia o restante do código
 COPY . ./
