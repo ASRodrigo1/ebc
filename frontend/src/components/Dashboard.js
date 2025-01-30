@@ -3,7 +3,8 @@ import ChartComponent from "./ChartComponent";
 import axios from "axios";
 import "./Dashboard.css";
 
-const API_URL = "http://147.93.66.207:8000/entries/?limit=4032";
+//const API_URL = "http://147.93.66.207:8000/entries/?limit=4032";
+const API_URL = "/api/entries/?limit=4032";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -11,6 +12,7 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log("Chamando API:", API_URL);
     axios.get(API_URL)
       .then(response => {
         setData(response.data);
