@@ -21,5 +21,5 @@ RUN chown -R ${USER_NAME}:${USER_NAME} /app
 
 USER ${USER_NAME}
 
-CMD ["bash", "-c", "tail -f /dev/null"]
-# CMD ["/app/entrypoint.sh"]
+#CMD ["bash", "-c", "tail -f /dev/null"]
+CMD ["/app/entrypoint.sh"]
