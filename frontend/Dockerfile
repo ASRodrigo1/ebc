@@ -19,13 +19,14 @@ RUN npm run build
 FROM nginx:alpine
 
 # Remove os arquivos padrão do Nginx
-RUN rm -rf /usr/share/nginx/html/*
+RUN rm -rf /etc/nginx/conf.d/default.conf
 
 # Copia os arquivos gerados na etapa anterior para o Nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Copia um arquivo de configuração do Nginx otimizado para React
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Expõe a porta padrão do Nginx
 EXPOSE 80
