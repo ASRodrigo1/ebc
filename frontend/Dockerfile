@@ -1,22 +1,28 @@
-# Usa a imagem do Node.js para construir a aplicação
 FROM node:18 AS build
 
-# Define o diretório de trabalho no container
 WORKDIR /app
 
-# Copia os arquivos do projeto para o container
+# Copia apenas package.json para instalar as dependências primeiro
 COPY package.json ./
+
+# Instala as dependências sem gerar cache desnecessário
 RUN npm install
 
-# Copia o restante dos arquivos e compila o projeto
-COPY . .
+# Copia o restante do código
+COPY . ./
+
+# Gera a versão de produção do frontend
 RUN npm run build
 
-# Usa uma imagem mais leve para rodar o frontend
 FROM nginx:alpine
+
+# Remove os arquivos padrão do Nginx
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copia os arquivos gerados na etapa anterior para o Nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expõe a porta 80 para servir a aplicação
+# Expõe a porta padrão do Nginx
 EXPOSE 80
 
 # Inicia o servidor Nginx
